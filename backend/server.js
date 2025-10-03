@@ -127,11 +127,16 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 10000;
 const HOST = process.env.HOST || '0.0.0.0';
 
-app.listen(PORT, HOST, () => {
+const server = app.listen(PORT, HOST, () => {
   console.log(`🚀 Server running on ${HOST}:${PORT}`);
   console.log(`📍 Environment: ${process.env.NODE_ENV || 'production'}`);
   console.log(`🌍 CORS: ${process.env.CLIENT_URL || 'All origins'}`);
 });
 
+// Handle server errors
+server.on('error', (error) => {
+  console.error('❌ Server error:', error);
+  process.exit(1);
+});
+
 module.exports = app;
-      
